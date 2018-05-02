@@ -14,5 +14,6 @@ python sst_preprocessing.py
 2. Train and evaluate the model with
 
 ```
-python slstm.py dataset_name ```
+python slstm.py dataset_name 
+```
 
