@@ -13,15 +13,9 @@ import math
 from keras.preprocessing.sequence import pad_sequences
 from general_utils import Progbar
 import tensorflow.contrib.slim as slim
-
-if sys.argv[3]=='imdb':
-    from imdb_config import Config
-    path='parsed_data/imdb_dataset'
-    vector_path='imdb_vectors'
-else:
-    from sst_config import Config
-    path='parsed_data/'+sys.argv[3]+'_dataset'
-    vector_path=sys.argv[3]+'_vectors'
+from sst_config import Config
+path='parsed_data/'+sys.argv[3]+'_dataset'
+vector_path=sys.argv[3]+'_vectors'
 
 
 def product_attention(config, lstm_output, mask, size, shape):

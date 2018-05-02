@@ -1,4 +1,4 @@
-# Named Entity Recognition with Tensorflow
+# Named Entity Recognition and Part of Speech Tagging with S-LSTM
 
 Code adapted from https://guillaumegenthial.github.io/sequence-tagging-with-tensorflow.html
 
@@ -59,15 +59,16 @@ sentence
 ```
 # dataset
 NER data
-dev_filename = "data//eng.testa.iob"
+dev_filename = "data/eng.testa.iob"
 test_filename = "data/eng.testb.iob"
 train_filename = "data/eng.train.iob"
+```
 ```
 POS data
 train_filename = "data/train.pos"
 dev_filename= "data/dev.pos"
 test_filename= "data/test.pos"
-
+```
 ## License
 
 This project is licensed under the terms of the apache 2.0 license (as Tensorflow and derivatives). If used for research, citation would be appreciated.
