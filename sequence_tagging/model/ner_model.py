@@ -446,7 +446,7 @@ class NERModel(BaseModel):
         of scores, of dimension equal to the number of tags.
         """
         print("Using model: "+self.config.model_type)
-        if self.config.model_type=='mlstm':
+        if self.config.model_type=='slstm':
             self.create_layers_two_gates()
         elif self.config.model_type=='lstm':
             self.lstm_layer()
