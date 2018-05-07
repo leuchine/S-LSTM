@@ -33,10 +33,8 @@ python train.py iteration_num window_size
 ```
 
 
-3. Evaluate and interact with the model with
-```
-python evaluate.py
-```
+3. The accuracy and F1 scores on test sets are shown during training.
+
 
 ## Training Data
 

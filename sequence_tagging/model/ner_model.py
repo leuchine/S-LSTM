@@ -564,13 +564,13 @@ class NERModel(BaseModel):
                 self.file_writer.add_summary(summary, epoch*nbatches + i)
 
         metrics = self.run_evaluate(dev)
-        msg = " - ".join(["{} {:04.2f}".format(k, v)
+        msg = " dev - ".join(["{} {:04.2f}".format(k, v)
                 for k, v in metrics.items()])
         self.logger.info(msg)
 
         start_time = time.time()            
         metrics2 = self.run_evaluate(test)
-        msg2 = " - ".join(["{} {:04.2f}".format(k, v)
+        msg2 = " test - ".join(["{} {:04.2f}".format(k, v)
                 for k, v in metrics2.items()])
         self.logger.info(msg2)
         print("Len test "+str(len(test)))
