@@ -8,6 +8,13 @@ import re
 import random
 import numpy as np
 import sys
+import os 
+
+def make_dir(path):
+    if not os.path.exists(path):
+        os.mkdir(path)
+        print('made directory %s' % path)
+make_dir("parsed_data")
 
 def text_preprocessing(datasets):
 	dataset_text=[]
@@ -97,7 +104,7 @@ if __name__ == "__main__":
 		except KeyError: 	
 			word2vec.append(np.random.normal(0, 0.1, 300).tolist())
 			missing+=1
-		print(number)
+		#print(number)
 		print(len(word2vec))
 	pickle.dump(word2vec, open(sys.argv[1]+'_vectors', 'wb'))
 	print(missing)
