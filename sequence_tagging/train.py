@@ -2,7 +2,10 @@ from model.data_utils import CoNLLDataset
 from model.ner_model import NERModel
 from model.config import Config
 import sys
+import os
 
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   
+os.environ["CUDA_VISIBLE_DEVICES"]="6"
 def main():
     # create instance of config
     config = Config()

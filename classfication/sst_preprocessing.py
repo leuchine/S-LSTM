@@ -19,7 +19,7 @@ def text_preprocessing(datasets):
 			for l in f:
 				try:
 					words=re.split('\s|-',l.lower().split("|||")[0].strip())
-					words=["<s>"]+words+["</s>"]
+					words=words
 					label=int(l.lower().split("|||")[1].strip())
 					lines+=[words]
 					labels+=[label]
@@ -44,7 +44,7 @@ def convert_words_to_number(dataset_text, dataset_label, common_word):
 		new_label=[]
 		for l, label in zip(lines,labels):
 			words=[common_word[w] if w in common_word else 1 for w in l]	
-			words=["<s>"]+words+["</s>"]
+			
 			new_x+=[words]
 			new_label+=[label]
 

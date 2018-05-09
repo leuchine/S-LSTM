@@ -6,7 +6,7 @@ This repo implements a NER/POS model using Tensorflow
 
 # Config
  Changing the entry `task` to `pos`/`ner` for named entity recognition/ part of speech tagging in `model/config.py`.
- Changing the entry `model_type` to `slstm`/`lstm` for using s-LSTM or vanilla LSTM  in `model/config.py`.
+ Changing the entry `model_type` to `slstm`/`lstm` for using S-LSTM or vanilla LSTM  in `model/config.py`.
 
 ## Getting started
 1. Download the GloVe vectors with
@@ -32,8 +32,9 @@ python build_data.py
 python train.py iteration_num window_size
 ```
 
+```iteration_num``` is the number of S-LSTM iterations and ```window_size``` decides how many left/right context words are used during S-LSTM iterations.
 
-3. The accuracy and F1 scores on test sets are shown during training.
+3. The accuracy and F1 scores on test sets are shown during training. (NER is evaluated using F1, while POS is evaluated using accuracies.)
 
 
 ## Training Data

@@ -76,7 +76,7 @@ class Classifer(object):
                 combined_state=combined_state+tensor
         return combined_state
     
-    def mlstm_cell(self, name_scope_name, hidden_size, lengths, initial_hidden_states, initial_cell_states, num_layers):
+    def slstm_cell(self, name_scope_name, hidden_size, lengths, initial_hidden_states, initial_cell_states, num_layers):
         with tf.name_scope(name_scope_name):
             #Word parameters 
             #forget gate for left 
@@ -306,13 +306,9 @@ class Classifer(object):
         initial_cell_states = tf.nn.dropout(initial_cell_states, keep_prob)
 
         #create layers 
-        if sys.argv[4]=='mlstm':
-            new_hidden_states,new_cell_state, dummynode_hidden_states=self.mlstm_cell("word_mlstm", config.hidden_size,self.mask, initial_hidden_states, initial_cell_states, config.layer)
-            #new_hidden_states2,new_cell_state2, dummynode_hidden_states2=self.mlstm_cell("word_mlstm2", config.hidden_size,self.mask, initial_hidden_states, initial_cell_states, config.layer)
-            #new_hidden_states3,new_cell_state3, dummynode_hidden_states3=self.mlstm_cell("word_mlstm3", config.hidden_size,self.mask, initial_hidden_states, initial_cell_states, config.layer)
-            #dummynode_hidden_states=(dummynode_hidden_states+dummynode_hidden_states2+dummynode_hidden_states3)/3
-            #dummynode_hidden_states=tf.maximum(dummynode_hidden_states, dummynode_hidden_states2)
-            #dummynode_hidden_states=tf.maximum(dummynode_hidden_states, dummynode_hidden_states3)
+        if sys.argv[4]=='slstm':
+            new_hidden_states,new_cell_state, dummynode_hidden_states=self.slstm_cell("word_slstm", config.hidden_size,self.mask, initial_hidden_states, initial_cell_states, config.layer)
+            
             softmax_w = tf.Variable(tf.random_normal([2*config.hidden_size, config.num_label], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="softmax_w")
             softmax_b = tf.Variable(tf.random_normal([config.num_label], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="softmax_b")
             #representation=dummynode_hidden_states

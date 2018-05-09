@@ -91,7 +91,7 @@ class Config():
     train_embeddings = False
     nepochs          = 100
     dropout          = 0.5
-    batch_size       = 10
+    batch_size       = 30
     lr_method        = "adam"
     lr               = 0.001
     lr_decay         = 0.97
@@ -106,8 +106,6 @@ class Config():
     use_crf = True # if crf, training is 1.7x slower on CPU
     use_chars = True # if char embedding, training is 3.5x slower on CPU
     char_use_mlstm=False 
-    step=1
-    layer=1
     random_initialize=True
-    task = "pos" #ner
+    task = "ner" #ner
     model_type='slstm'
