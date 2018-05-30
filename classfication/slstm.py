@@ -14,21 +14,9 @@ from keras.preprocessing.sequence import pad_sequences
 from general_utils import Progbar
 import tensorflow.contrib.slim as slim
 from sst_config import Config
+
 path='parsed_data/'+sys.argv[3]+'_dataset'
 vector_path=sys.argv[3]+'_vectors'
-
-
-def product_attention(config, lstm_output, mask, size, shape):
-    sequence_mask=tf.cast(tf.sequence_mask(mask, shape[1]), tf.float32)
-    mask_softmax_score=sequence_mask*1e25-1e25
-    reshaped_lstm_output=tf.reshape(lstm_output, [-1, size])
-    #softmax matrix
-    attention_w = tf.Variable(tf.random_normal([size, size], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="attention_w")
-    attention_b = tf.Variable(tf.random_normal([size], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="attention_b")
-    context_vector= tf.Variable(tf.random_normal([size, 1], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="context")
-    weights=tf.matmul(tf.tanh(tf.matmul(reshaped_lstm_output, attention_w)+attention_b), context_vector)
-    normalized_weights= tf.expand_dims(tf.nn.softmax(tf.reshape(weights, [shape[0], shape[1]])+mask_softmax_score),dim=1)
-    return tf.squeeze(tf.matmul(normalized_weights, lstm_output),axis=1)
 
 def lstm_layer(initial_hidden_states, config, keep_prob, mask):
     with tf.variable_scope('forward'):
@@ -317,14 +305,12 @@ class Classifer(object):
             softmax_w2 = tf.Variable(tf.random_normal([config.hidden_size, 2*config.hidden_size], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="softmax_w2")
             softmax_b2 = tf.Variable(tf.random_normal([2*config.hidden_size], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="softmax_b2")
             representation=tf.nn.tanh(tf.matmul(representation, softmax_w2)+softmax_b2)
-            #representation=tf.reduce_mean(new_hidden_states,axis=1)
-            #representation=product_attention(config, new_hidden_states, self.mask, config.hidden_size, shape)
+
         elif sys.argv[4]=='lstm':
             initial_hidden_states=lstm_layer(initial_hidden_states,config, self.keep_prob, self.mask)
             softmax_w = tf.Variable(tf.random_normal([2*config.hidden_size, config.num_label], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="softmax_w")
             softmax_b = tf.Variable(tf.random_normal([config.num_label], mean=0.0, stddev=0.1, dtype=tf.float32), dtype=tf.float32, name="softmax_b")
             representation=tf.reduce_sum(initial_hidden_states,axis=1)
-            #representation=product_attention(config, new_hidden_states, self.mask, 2*config.hidden_size, shape)
             config.hidden_size_sum=2*config.hidden_size
         elif sys.argv[4]=='cnn':
             initial_hidden_states=tf.reshape(initial_hidden_states, [-1, 700, config.hidden_size])            
