@@ -493,8 +493,8 @@ def train_test_model(config, i, session, model, train_dataset, valid_dataset, te
     print("Training Accuracy = %.4f, time = %.3f seconds\n"%(train_acc, time.time()-start_time))
 
     #valid 
-    #valid_acc = run_epoch(session, config, model, valid_dataset, tf.no_op(),1)
-    #print("Valid Accuracy = %.4f\n" % valid_acc)
+    valid_acc = run_epoch(session, config, model, valid_dataset, tf.no_op(),1, False)
+    print("Valid Accuracy = %.4f\n" % valid_acc)
 
     #testing
     start_time = time.time()
@@ -510,10 +510,6 @@ def start_epoches(config, session,classifier, train_dataset, valid_dataset, test
 
     for i in range(config.max_max_epoch):
         train_test_model(config, i, session, classifier, train_dataset, valid_dataset, test_dataset)
-        #if valid_acc> max_val_acc:
-        #    max_val_acc=valid_acc
-        #    max_test_acc=test_acc
-        #print("Max Test Accuracy = %.4f\n" % max_test_acc)
 
 def word_to_vec(matrix, session,config, *args):
     
